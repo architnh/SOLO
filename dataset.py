@@ -72,20 +72,28 @@ images[:, 2, :, :] = images[:, 2, :, :]/std[2]
 # Non - Vectorized
 mean = [0.485, 0.456, 0.406] 
 std = [0.229, 0.224, 0.225]
-for img in images:
-    # print('Original Min: %.3f, Max: %.3f' % (np.min(img), np.max(img)))
-    img = img/255
-    # print('After normalizing Min: %.3f, Max: %.3f' % (np.min(img), np.max(img)))
-    img[0] -= mean[0]
-    img[0] /= std[0]
-    # print('After -Mean, /STD: Channel 1 Min: %.3f, Max: %.3f' % (np.min(img[0]), np.max(img[0])))
+processed_images = []
+# single_image = images[0].copy()
+for i in range(0, len(images)):
+    single_image = images[i].copy()
+    # print('Original Min: %.3f, Max: %.3f' % (np.min(single_image), np.max(single_image)))
+    single_image = (single_image/255)
+    # print('After normalizing Min: %.3f, Max: %.3f' % (np.min(single_image), np.max(single_image)))
+    single_image[0] = single_image[0] - mean[0]
+    single_image[0] = single_image[0] / std[0]
+    # print('After -Mean, /STD: Channel 1 Min: %.3f, Max: %.3f' % (np.min(single_image[0]), np.max(single_image[0])))
 
-    img[1] -= mean[1]
-    img[1] /= std[1]
-    # print('After -Mean, /STD: Channel 2 Min: %.3f, Max: %.3f' % (np.min(img[1]), np.max(img[1])))
+    single_image[1] = single_image[1] - mean[1]
+    single_image[1] = single_image[1] / std[1]
+    # print('After -Mean, /STD: Channel 2 Min: %.3f, Max: %.3f' % (np.min(single_image[1]), np.max(single_image[1])))
 
-    img[2] -= mean[2]
-    img[2] /= std[2]
-    # print('After -Mean, /STD: Channel 3 Min: %.3f, Max: %.3f' % (np.min(img[2]), np.max(img[2])))
+    single_image[2] = single_image[2] - mean[2]
+    single_image[2] = single_image[2] / std[2]
+    # print('After -Mean, /STD: Channel 3 Min: %.3f, Max: %.3f' % (np.min(single_image[2]), np.max(single_image[2])))
+    # print(np.shape(single_image))
+    # raw_images = np.append(raw_images, single_image)
+    processed_images.append(single_image)
+
+# print(np.shape(processed_images))
 
 
